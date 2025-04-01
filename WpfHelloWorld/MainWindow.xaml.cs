@@ -23,10 +23,38 @@ namespace WpfHelloWorld
             InitializeComponent();
         }
 
+        bool isEpressed = false;
+        bool isRpressed = false;
+
+        private void Window_KeyDown(object sender, KeyEventArgs k)
+        {
+            if (k.Key == Key.E)
+                isEpressed = true;
+            if (k.Key == Key.R)
+                isRpressed = true;
+
+            if (isEpressed && isRpressed)
+            {
+                ImgToggle_Click(this, new RoutedEventArgs());
+                isEpressed = false;
+                isRpressed = false;
+            }
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs k)
+        {
+            if (k.Key == Key.E)
+                isEpressed = false;
+            if (k.Key == Key.R)
+                isRpressed = false;
+        }
+
         private void ImgToggle_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "JPG Files | *.jpg";
+            fileDialog.Filter = "IMG Files | *.jpg; *jpeg; *.png";
+
+            
 
             bool? success = fileDialog.ShowDialog();
             if (success == true)
@@ -35,8 +63,6 @@ namespace WpfHelloWorld
                 string fileName = fileDialog.FileName;
 
                 Info.Text = fileName;
-
-                showing = true;
 
                 //convert filename to image type
                 BitmapImage img = new BitmapImage();
@@ -55,6 +81,11 @@ namespace WpfHelloWorld
             {
                 // didn't select an image
             }
+
+
+            // keybind branch testing testing
+
+
 
             //if (showing)
             //{
