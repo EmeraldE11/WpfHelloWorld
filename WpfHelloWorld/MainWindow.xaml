@@ -20,8 +20,5 @@
         </StackPanel>
         <TextBlock Name="Info"  Text="File path listed here" HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="50"/>
         <TextBlock Name="keyInfo" Text="Press 'E' and 'R' to show image" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25"/>
-       
-
-
     </Grid>
 </Window>
