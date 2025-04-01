@@ -35,7 +35,7 @@ namespace WpfHelloWorld
 
             if (isEpressed && isRpressed)
             {
-                ImgToggle_Click(this, new RoutedEventArgs());
+                FindButton_Click(this, new RoutedEventArgs());
                 isEpressed = false;
                 isRpressed = false;
             }
@@ -49,12 +49,11 @@ namespace WpfHelloWorld
                 isRpressed = false;
         }
 
-        private void ImgToggle_Click(object sender, RoutedEventArgs e)
+        private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "IMG Files | *.jpg; *jpeg; *.png";
 
-            
 
             bool? success = fileDialog.ShowDialog();
             if (success == true)
@@ -80,20 +79,15 @@ namespace WpfHelloWorld
             else
             {
                 // didn't select an image
+                HelloWorld.Opacity = 0.5;
             }
 
+        }
 
-            // keybind branch testing testing
-
-
-
-            //if (showing)
-            //{
-            //    //hide img
-            //    showing = false;
-            //    HelloWorld.Visibility = Visibility.Collapsed;
-            //    ImgToggle.Content = "Show Image";
-            //}
+        private void HideButton_Click(object sender, RoutedEventArgs e)
+        {
+            HelloWorld.Visibility = Visibility.Collapsed;
+            HelloWorld.Opacity = 1;
         }
     }
 }

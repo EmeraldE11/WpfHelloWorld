@@ -11,12 +11,17 @@
     <Grid>
         <Image x:Name="HelloWorld" Source="/helloworld.jpg"
                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Uniform"
-               Visibility="Collapsed"/>
-        <Button Name="ImgToggle" Content="Show Image" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Click="ImgToggle_Click"/>
-        <TextBlock Name="Info"  Text="TextBlock" HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="50"/>
-        <TextBlock Name="keyInfo" Text="Press e and r to show image" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25"/>
-        
+               Visibility="Visible"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Name="FindButton" Content="Find Image" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20"
+                    Click="FindButton_Click"/>
+            <Button Name="HideButton" Content="Hide Image" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20"
+                    Click="HideButton_Click"/>
+        </StackPanel>
+        <TextBlock Name="Info"  Text="File path listed here" HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="50"/>
+        <TextBlock Name="keyInfo" Text="Press 'E' and 'R' to show image" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25"/>
+       
+
 
     </Grid>
 </Window>
