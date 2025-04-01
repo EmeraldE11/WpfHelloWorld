@@ -52,7 +52,7 @@ namespace WpfHelloWorld
         private void ImgToggle_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "JPG Files | *.jpg";
+            fileDialog.Filter = "IMG Files | *.jpg; *jpeg; *.png";
 
             
 
