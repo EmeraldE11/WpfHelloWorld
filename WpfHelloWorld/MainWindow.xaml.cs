@@ -52,7 +52,7 @@ namespace WpfHelloWorld
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "IMG Files | *.jpg; *jpeg; *.png";
+            fileDialog.Filter = "IMG Files | *";
 
 
             bool? success = fileDialog.ShowDialog();
@@ -89,5 +89,30 @@ namespace WpfHelloWorld
             HelloWorld.Visibility = Visibility.Collapsed;
             HelloWorld.Opacity = 1;
         }
+
+        // EVERYTHING below this comment --- Copied from SOTI Reporting README
+        // For unhandled UI exceptions.
+        private void WriteUnhandledExceptionToFile(object sender, UnhandledExceptionEventArgs args)
+        {
+            string appName = Assembly.GetExecutingAssembly().GetName().Name;
+            string message = LogWriter.LogUnhandledExceptionToFile(appName, args.ExceptionObject as Exception);
+            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        // For unhandled thread exceptions.
+        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            string appName = Assembly.GetExecutingAssembly().GetName().Name;
+            string message = LogWriter.LogUnhandledExceptionToFile(appName, e.Exception);
+            MessageBox.Show(message, "Unhandled Thread Exception");
+        }
+
+
+        // Catch and log crashes.
+        AppDomain.CurrentDomain.UnhandledException +=
+            new UnhandledExceptionEventHandler(WriteUnhandledExceptionToFile);
+        Application.ThreadException +=
+            new ThreadExceptionEventHandler(Application_ThreadException);
+
     }
 }
