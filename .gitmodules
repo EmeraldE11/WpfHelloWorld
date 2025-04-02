@@ -1,0 +1,3 @@
+[submodule "reportSub"]
+	path = reportSub
+	url = https://github.com/Sierra-Olympic/Soti-Reporting.git
