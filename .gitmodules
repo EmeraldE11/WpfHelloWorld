@@ -1,3 +1,3 @@
-[submodule "WpfHelloWorld/reportSub"]
-	path = WpfHelloWorld/reportSub
+[submodule "Soti-Reporting"]
+	path = Soti-Reporting
 	url = https://github.com/Sierra-Olympic/Soti-Reporting.git
