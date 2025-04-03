@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Soti.Reporting;
+using System.Reflection;
 
 namespace WpfHelloWorld
 {
@@ -17,10 +19,13 @@ namespace WpfHelloWorld
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool showing = false;
         public MainWindow()
         {
             InitializeComponent();
+
+            // Catch and log crashes.
+            AppDomain.CurrentDomain.UnhandledException +=
+                new UnhandledExceptionEventHandler(WriteUnhandledExceptionToFile);
         }
 
         bool isEpressed = false;
@@ -52,7 +57,7 @@ namespace WpfHelloWorld
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "IMG Files | *";
+            fileDialog.Filter = "IMG Files | *jpg; *jpeg; *png; *gif";
 
 
             bool? success = fileDialog.ShowDialog();
@@ -75,11 +80,13 @@ namespace WpfHelloWorld
 
 
                 HelloWorld.Visibility = Visibility.Visible;
+                HelloWorld.Opacity = 1;
             }
             else
             {
                 // didn't select an image
                 HelloWorld.Opacity = 0.5;
+                CauseCrash();
             }
 
         }
@@ -90,6 +97,11 @@ namespace WpfHelloWorld
             HelloWorld.Opacity = 1;
         }
 
+        void CauseCrash()
+        {
+            throw new InvalidOperationException("This is a test exception for error logging.");
+        }
+
         // EVERYTHING below this comment --- Copied from SOTI Reporting README
         // For unhandled UI exceptions.
         private void WriteUnhandledExceptionToFile(object sender, UnhandledExceptionEventArgs args)
@@ -98,21 +110,5 @@ namespace WpfHelloWorld
             string message = LogWriter.LogUnhandledExceptionToFile(appName, args.ExceptionObject as Exception);
             MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
-        // For unhandled thread exceptions.
-        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            string appName = Assembly.GetExecutingAssembly().GetName().Name;
-            string message = LogWriter.LogUnhandledExceptionToFile(appName, e.Exception);
-            MessageBox.Show(message, "Unhandled Thread Exception");
-        }
-
-
-        // Catch and log crashes.
-        AppDomain.CurrentDomain.UnhandledException +=
-            new UnhandledExceptionEventHandler(WriteUnhandledExceptionToFile);
-        Application.ThreadException +=
-            new ThreadExceptionEventHandler(Application_ThreadException);
-
     }
 }
