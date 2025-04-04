@@ -86,7 +86,6 @@ namespace WpfHelloWorld
             {
                 // didn't select an image
                 HelloWorld.Opacity = 0.5;
-                CauseCrash();
             }
 
         }
@@ -97,12 +96,6 @@ namespace WpfHelloWorld
             HelloWorld.Opacity = 1;
         }
 
-        void CauseCrash()
-        {
-            throw new InvalidOperationException("This is a test exception for error logging.");
-        }
-
-        // EVERYTHING below this comment --- Copied from SOTI Reporting README
         // For unhandled UI exceptions.
         private void WriteUnhandledExceptionToFile(object sender, UnhandledExceptionEventArgs args)
         {
