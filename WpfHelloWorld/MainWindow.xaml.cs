@@ -56,8 +56,10 @@ namespace WpfHelloWorld
 
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "IMG Files | *jpg; *jpeg; *png; *gif";
+            OpenFileDialog fileDialog = new()
+            {
+                Filter = "IMG Files | *jpg; *jpeg; *png; *gif"
+            };
 
 
             bool? success = fileDialog.ShowDialog();
@@ -69,7 +71,7 @@ namespace WpfHelloWorld
                 Info.Text = fileName;
 
                 //convert filename to image type
-                BitmapImage img = new BitmapImage();
+                BitmapImage img = new();
                 img.BeginInit();
                 img.UriSource = new Uri(fileName, UriKind.Absolute);
                 img.CacheOption = BitmapCacheOption.OnLoad; // Ensures file is freed after loading
@@ -99,7 +101,8 @@ namespace WpfHelloWorld
         // For unhandled UI exceptions.
         private void WriteUnhandledExceptionToFile(object sender, UnhandledExceptionEventArgs args)
         {
-            string appName = Assembly.GetExecutingAssembly().GetName().Name;
+            string? name = Assembly.GetExecutingAssembly().GetName().Name;
+            string appName = name ?? "DefaultAppName";
             string message = LogWriter.LogUnhandledExceptionToFile(appName, args.ExceptionObject as Exception);
             MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
